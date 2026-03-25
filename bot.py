@@ -2,12 +2,13 @@ import requests
 import os
 
 def get_btc_price():
-    # Using the Binance API for highly accurate, real-time pricing
-    url = "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
+    # Using CoinDesk's NEW Data API endpoint
+    url = "https://data-api.coindesk.com/index/cc/v1/latest/tick?market=ccix&instruments=BTC-USD"
     response = requests.get(url)
     data = response.json()
-    # Convert the price from a string to a decimal number (float)
-    return float(data["price"])
+    
+    # Extract the decimal price from CoinDesk's new JSON structure
+    return float(data["Data"]["BTC-USD"]["VALUE"])
 
 def main():
     # Fetch the price
